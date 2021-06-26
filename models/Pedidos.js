@@ -27,6 +27,11 @@ module.exports = (connectionDB) => {
             notNull: false,
             notEmpty: true
         },
+          cantidad: {
+            type: DataTypes.STRING,
+            notNull: false,
+            notEmpty: true
+        },
         id_user: {
             type: DataTypes.INTEGER,
             allowNull: false,

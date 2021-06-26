@@ -5,7 +5,7 @@
     <title>Login</title>
     
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-     
+     <link rel="stylesheet" href="../css/sweetalert2.min.css">
     <link rel="stylesheet" href="../css/style.css">
     
 </head>
@@ -14,7 +14,7 @@
 <div class="container-form">
         <div class="header">
             <div class="logo-title">
-                <h2>Cookingshop</h2>
+                <a href="/"><h2>Cookingshop</h2></a>
             </div>
             <div class="menu">
                 <a href="../index.html"><li class="module-login active">Login</li></a>
@@ -32,6 +32,7 @@
                 <label class="lnr lnr-lock"></label>
                 <input type="password" placeholder="Contraseña" name="password" id="password">
             </div>
+            <p id="token"></p>
             <div class="mensaje">
             </div>
           
@@ -42,6 +43,7 @@
     <script src="../js/jquery.js"></script>
     <script src="../js/script.js"></script>
     <script src="../js/handlerSession.js"></script>
+    <script src="../js/sweetalert2.min.js"></script>
 </body>
 </html>
 

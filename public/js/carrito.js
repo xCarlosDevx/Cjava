@@ -145,7 +145,7 @@ class Carrito {
                     <img src="${producto.imagen}" width=100>
                 </td>
                 <td>${producto.titulo}</td>
-                <td>${producto.precio}</td>
+                <td>RD $${producto.precio}</td>
                 <td>
                     <input type="number" class="form-control cantidad" min="1" max="10" value=${producto.cantidad}>
                 </td>

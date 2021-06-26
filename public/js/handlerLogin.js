@@ -9,19 +9,34 @@ const confirmPassword = document.getElementById('confirm-password');
 registerForm.addEventListener("submit", (e) => {
 
     e.preventDefault();
-// || = (Or) si ninguno de estos campos tiene valor hara la siguiente validacion ! = (no) //
+    // || = (Or) si ninguno de estos campos tiene valor hara la siguiente validacion ! = (no) //
     if (!nombre.value || !apellido.value || !email.value || !password.value || !confirmPassword.value) {
-        console.log("Faltan campos por llenar")
-// .legth = cantidad de caracteres validacion de que la constrase;a debe de ser mayor a 6 caracteres //
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `Falta campos por llenar`.toUpperCase(),
+            confirmButtonColor: "#000"
+        })
+        // .legth = cantidad de caracteres validacion de que la constrase;a debe de ser mayor a 6 caracteres //
     } else if (password.value.length < 6 || confirmPassword.value.length < 6) {
-        console.log("la clave tiene que tener mas de 6 caracteres")
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `La clave tiene que tener al menos mas de 6 caracteres`.toUpperCase(),
+            confirmButtonColor: "#000"
+        })
     }
-// Si la contrasena no es igual != (no) //
+    // Si la contrasena no es igual != (no) //
     else if (password.value !== confirmPassword.value) {
-        console.log("Las claves no coinciden")
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `LaS claves no coinciden`.toUpperCase(),
+            confirmButtonColor: "#000"
+        })
     }
     else {
-// Variable "User" sera igual a todos los datos que introduzca el usuario//
+        // Variable "User" sera igual a todos los datos que introduzca el usuario//
         let user = {
             nombre: nombre.value,
             apellido: apellido.value,
@@ -31,29 +46,31 @@ registerForm.addEventListener("submit", (e) => {
         }
 
         try {
-// Request antigua para realizar peticiones al servidor  XHR //
+            // Request antigua para realizar peticiones al servidor  XHR //
             let xhr = new XMLHttpRequest()
-// Abrir la Api creada anteriormente //
+            // Abrir la Api creada anteriormente //
             xhr.open("POST", '/api/usuarios/signup')
-// Encabezado que vendra de json tipo texto, traduce el json a string //
+            // Encabezado que vendra de json tipo texto, traduce el json a string //
             xhr.setRequestHeader('content-type', 'application/json')
             xhr.onload = function () {
-                let messageSuccess = JSON.parse(xhr.responseText)
-                if (messageSuccess.status == "success") {
-                    let message = JSON.parse(xhr.responseText)
-                    console.log(message.msg)
-// Limpieza de datos //
-                    nombre.value = ""
-                    apellido.value = ""
-                    email.value = ""
-                    password.value = ""
-                    confirmPassword.value = ""
-                } else {
-                    let message = JSON.parse(xhr.responseText)
-                    console.log(message.msg)
+                let response = JSON.parse(this.response)
+                if (response.status == 'error') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `${response.msg}`.toUpperCase(),
+                    })
                 }
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registrado',
+                    text: `Re-direccionando al Login`.toUpperCase(),
+                    showConfirmButton:false,
+                    timer:1500
+                })
+                window.location.href="/frontend/login-vista.html"
             }
-// Traduce el String nuevamente en JSon //
+            // Traduce el String nuevamente en JSon //
             xhr.send(JSON.stringify(user))
         } catch (error) {
             console.log(error)
