@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap');
 /*
 
 Next Level CSS Template
@@ -23,12 +24,12 @@ https://templatemo.com/tm-532-next-level
     7 = 55
 */
 
-/*	Overrides */
 
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+
+  font-family:'Poppins', sans-serif;
   font-size: 18px;
   font-weight: 400;
   overflow-x: hidden;
