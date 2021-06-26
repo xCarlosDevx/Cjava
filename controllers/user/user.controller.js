@@ -11,20 +11,23 @@ exports.signup = async (req, res) => {
     }
     try {
         const { nombre, apellido, email, password, role } = req.body;
-
+// Await espera a una promesa y solo puede ser usada dentro de una funcion Sync //
+// User = tabla usuarios, FindOne buscara a un usuario donde el email sea indentico //
         const findUser = await User.findOne({
             where: {
                 email: email
             }
         })
         if (findUser) {
-            return res.status(400).json({ msg: "Este usuario existe en la base de datos" })
+            return res.status(400).json({ status: "error", msg: "Este usuario existe en la base de datos" })
         }
         let genSalt = bcrypt.genSaltSync(8)
+
         await User.create({
             nombre,
             apellido,
             email,
+// Contrase;a encriptada //
             password: bcrypt.hashSync(password, genSalt)
         }).then((user) => {
             if (role) {
@@ -34,19 +37,19 @@ exports.signup = async (req, res) => {
                     }
                 }).then((roles) => {
                     user.setRoles(roles).then(() => {
-                        return res.send({ msg: "El usuario ha sido registrado" })
+                        return res.send({ status: "success", msg: "El usuario ha sido registrado" })
                     })
                 })
             } else {
                 user.setRoles(2).then(() => {
-                    res.send({ msg: "El usuario ha sido registrado" })
+                    res.send({ status: "success", msg: "El usuario ha sido registrado" })
                 })
             }
         })
-        return res.status(201).json({ msg: 'El usuario ha sido creado' })
+        return res.status(201).json({ status: "success", msg: 'El usuario ha sido creado' })
     } catch (error) {
         console.log(error.message);
-        return res.status(500).json({ msg: 'Server error' })
+        return res.status(500).json({ status: "error", msg: 'Server error' })
     }
 }
 

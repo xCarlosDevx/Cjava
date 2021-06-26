@@ -29,7 +29,6 @@ function procesarCompra() {
     // e.preventDefault();
     if (compra.obtenerProductosLocalStorage().length === 0) {
         Swal.fire({
-            type: 'error',
             title: 'Oops...',
             text: 'No hay productos, selecciona alguno',
             showConfirmButton: false,
@@ -40,7 +39,6 @@ function procesarCompra() {
     }
     else if (cliente.value === '' || correo.value === '') {
         Swal.fire({
-            type: 'error',
             title: 'Oops...',
             text: 'Ingrese todos los campos requeridos',
             showConfirmButton: false,

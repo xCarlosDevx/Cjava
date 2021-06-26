@@ -6,7 +6,6 @@ const _ = require('lodash');
 exports.verifyToken = (req, res, next) => {
     return new Promise((resolve, reject) => {
         const token = req.header('x-auth-token')
-        console.log(req.headers)
         if (!token) {
             return reject("vovo", false);
         }
@@ -14,7 +13,8 @@ exports.verifyToken = (req, res, next) => {
             if (err) {
                 return reject(err)
             }
-            req.userId = decoded.user.id
+            req.userId = decoded.user.id;
+            next();
         })
         User.findByPk(req.userId).then((user) => {
             res.locals.user = user;
